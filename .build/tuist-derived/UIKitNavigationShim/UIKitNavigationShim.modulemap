@@ -1,0 +1,4 @@
+module UIKitNavigationShim {
+    umbrella "/Users/parkseoyeon/TCA/TCA-Toy-Project/.build/checkouts/swift-navigation/Sources/UIKitNavigationShim/include"
+    export *
+}
