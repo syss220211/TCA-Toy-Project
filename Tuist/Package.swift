@@ -21,7 +21,7 @@ import PackageDescription
 let package = Package(
     name: "TCAToyProject",
     dependencies: [
-        .package(url: "https://github.com/pointfreeco/swift-composable-architecture", exact: "1.17.0"),
+        .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "1.12.1"),
         .package(url: "https://github.com/airbnb/lottie-ios", from: "4.5.0")
     ]
 )
