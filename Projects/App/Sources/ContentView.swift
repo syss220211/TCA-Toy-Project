@@ -8,6 +8,7 @@
 
 import SwiftUI
 import Lottie
+import ComposableArchitecture
 
 struct ContentView: View {
     var body: some View {

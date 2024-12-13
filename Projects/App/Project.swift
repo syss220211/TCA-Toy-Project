@@ -7,7 +7,7 @@ let project = Project.app(
             name: EnvironmentSettings.default.name,
             dependencies: [
                 .spm(.Lottie),
-//                .spm(.ComposableArchitecture)
+                .spm(.ComposableArchitecture)
             ],
             infoPlist: true
         ),
