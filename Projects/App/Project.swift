@@ -8,8 +8,7 @@ let project = Project.app(
             dependencies: [
                 .spm(.Lottie),
                 .spm(.ComposableArchitecture)
-            ],
-            infoPlist: true
+            ]
         ),
     ]
 )

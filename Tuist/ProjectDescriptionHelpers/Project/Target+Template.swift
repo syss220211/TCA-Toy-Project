@@ -15,8 +15,7 @@ public extension Target {
     
     static func appTarget(
         name: String,
-        dependencies: [Module] = [],
-        infoPlist: Bool = true
+        dependencies: [Module] = []
     ) -> Target {
         let dependencies = dependencies.map { $0.setDependency() }
         
@@ -26,8 +25,7 @@ public extension Target {
             product: .app,
             bundleId: "com.\(name).\(organizationName)",
             deploymentTargets: deploymentTargets,
-            infoPlist: infoPlist
-            ? .file(path: "Support/info.plist") : .default,
+            infoPlist: .file(path: "Support/Info.plist"),
             sources: ["Sources/**"],
             resources: ["Resources/**"],
             dependencies: dependencies,

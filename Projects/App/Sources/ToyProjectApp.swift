@@ -9,14 +9,27 @@
 import SwiftUI
 import ComposableArchitecture
 
-@main
-struct ToyProjectAPP: App {
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+//@main
+//struct ToyProjectAPP: App {
+//    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+//
+//    var body: some Scene {
+//        WindowGroup {
+//            ContentView()
+//        }
+//    }
+//}
 
+@main
+struct ToyProjectApp: App {
+    static let store = Store(initialState: CounterFeature.State()) {
+        CounterFeature()
+            ._printChanges()
+    }
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            CounterView(store: ToyProjectApp.store)
         }
     }
 }
-
