@@ -5,12 +5,12 @@
 //  Created by 박서연 on 2024/12/12.
 //
 
-import ProjectDescription
+@preconcurrency import ProjectDescription
 import ProjectDescriptionHelpers
 
 let workspace = Workspace(
     name: "TCAToyProject",
     projects: [
-        "Projects/App"
+        "Projects/TCA-Toy-Project"
     ]
 )

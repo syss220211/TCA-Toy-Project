@@ -10,7 +10,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct ContactsView: View {
-    let store: StoreOf<ContactsFeature>
+    @Perception.Bindable var store: StoreOf<ContactsFeature>
     
     var body: some View {
         NavigationStack {
@@ -30,21 +30,18 @@ struct ContactsView: View {
                 }
             }
         }
+        .sheet(item: $store.scope(state: \.addContact, action: \.addContact)) { addContacts in
+            NavigationStack {
+                AddContactView(store: addContacts)
+            }
+        }
     }
 }
 
 #Preview {
-    ContactsView(
-        store: Store(
-            initialState: ContactsFeature.State(
-                contacts: [
-                    Contact(id: UUID(), name: "Blob"),
-                    Contact(id: UUID(), name: "Blob Jr"),
-                    Contact(id: UUID(), name: "Blob Sr"),
-                ]
-            )
-        ) {
-            ContactsFeature()
-        }
-    )
+    ContactsView(store: Store(initialState: ContactsFeature.State(
+        contacts: [Contact(id: UUID(), name: "서연")]
+    ), reducer: {
+        ContactsFeature()
+    }))
 }

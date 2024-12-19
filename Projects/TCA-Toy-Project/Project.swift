@@ -1,12 +1,12 @@
-import ProjectDescription
+@preconcurrency import ProjectDescription
 import ProjectDescriptionHelpers
 
 let project = Project.app(
     target: [
         .appTarget(
-            name: EnvironmentSettings.default.name,
+            name: "TCA-Toy-Project",
             dependencies: [
-                .spm(.Lottie),
+//                .spm(.Lottie),
                 .spm(.ComposableArchitecture)
             ]
         ),

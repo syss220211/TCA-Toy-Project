@@ -10,7 +10,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct AddContactView: View {
-    @BindingViewState var store: StoreOf<AddContactFeature>
+    @Perception.Bindable var store: StoreOf<AddContactFeature>
     
     var body: some View {
         Form {
@@ -29,19 +29,8 @@ struct AddContactView: View {
     }
 }
 
-//#Preview {
-//  NavigationStack {
-//    AddContactView(
-//      store: Store(
-//        initialState: AddContactFeature.State(
-//          contact: Contact(
-//            id: UUID(),
-//            name: "Blob"
-//          )
-//        )
-//      ) {
-//        AddContactFeature()
-//      }
-//    )
-//  }
-//}
+#Preview {
+    AddContactView(store: Store(initialState: AddContactFeature.State(contact: Contact(id: UUID(), name: "seoyeon")), reducer: {
+        AddContactFeature()
+    }))
+}

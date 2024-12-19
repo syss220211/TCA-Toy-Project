@@ -5,10 +5,10 @@
 //  Created by 박서연 on 2024/12/12.
 //
 
-import ProjectDescription
+@preconcurrency import ProjectDescription
 
 public extension Target {
-    private static let environmentSettings = EnvironmentSettings.default
+    nonisolated(unsafe) private static let environmentSettings = EnvironmentSettings.default
     private static let organizationName = environmentSettings.organizationName
     private static let destinations = environmentSettings.destinations
     private static let deploymentTargets = environmentSettings.deploymentTargets

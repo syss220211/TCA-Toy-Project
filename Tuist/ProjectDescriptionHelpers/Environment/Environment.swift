@@ -14,8 +14,8 @@ public struct EnvironmentSettings {
     public let platform: Platform
     public let destinations: Destinations
     
-    public static let `default` = EnvironmentSettings(
-        name: "App",
+    nonisolated(unsafe) public static let `default` = EnvironmentSettings(
+        name: "TCA-Toy-Project",
         organizationName: "yapp25-toy-project",
         deploymentTargets: .iOS("16.0"),
         platform: .iOS,
