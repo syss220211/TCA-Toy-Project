@@ -14,12 +14,12 @@ struct ProfileDetailFeature {
     struct State: Equatable {
         var selectedPerson: Profile? = nil
         var isModalPresented: Bool = false
-        var name: String = ""
+//        var name: String = ""
     }
     
     enum Action: Equatable {
-        case dismissModal(String)
-        case setName(String)
+        case dismissModal//(String)
+//        case setName(String)
     }
     
     var body: some ReducerOf<Self> {
@@ -28,9 +28,9 @@ struct ProfileDetailFeature {
             case .dismissModal:
                 return .none
                 
-            case .setName(let value):
-                state.name = value
-                return .none
+//            case .setName(let value):
+//                state.name = value
+//                return .none
             }
         }
     }

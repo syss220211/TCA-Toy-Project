@@ -16,15 +16,16 @@ struct ProfileDetailView: View {
         VStack {
             Text("이름 \(store.selectedPerson?.name ?? "")")
             Text("NotificationValue: \(store.selectedPerson?.isNotificationsEnabled ?? false)")
-            TextField(
-                "Text",
-                text: Binding(
-                    get: { store.name },
-                    set: { newValue in store.send(.setName(newValue)) }
-                )
-            )
+//            TextField(
+//                "Text",
+//                text: Binding(
+//                    get: { store.name },
+//                    set: { newValue in store.send(.setName(newValue)) }
+//                )
+//            )
             Button("Close") {
-                store.send(.dismissModal(store.name))
+                store.send(.dismissModal)
+//                store.send(.dismissModal(store.name))
             }
         }
     }

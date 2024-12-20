@@ -79,17 +79,21 @@ struct ProfileFeature {
                 switch presentationAction {
                 case .presented(let detailAction):
                     switch detailAction {
-                    case .dismissModal(let name):
-                        state.name = name
+                    case .dismissModal:
                         state.detailPerson = nil
                         return .none
-                    default:
-                        // state.detailPerson = nil
-                        return .none
+//                    case .dismissModal(let name):
+//                        state.name = name
+//                        state.detailPerson = nil
+//                        return .none
+//                    default:
+//                        return .none
                     }
+//                case .dismiss:
+//                    state.detailPerson = nil
+//                    print("Dddddddddd")
+//                    return .none
                 case .dismiss:
-                    state.detailPerson = nil
-                    print("Dddddddddd")
                     return .none
                 }
             }
