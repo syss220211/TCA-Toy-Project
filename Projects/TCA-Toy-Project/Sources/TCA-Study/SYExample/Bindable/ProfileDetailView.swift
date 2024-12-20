@@ -10,17 +10,22 @@ import SwiftUI
 import ComposableArchitecture
 
 struct ProfileDetailView: View {
-    @Perception.Bindable var store: StoreOf<ProfileFeature>
+    let store: StoreOf<ProfileDetailFeature>
     
     var body: some View {
         VStack {
-            Text("")
+            Text("이름 \(store.selectedPerson?.name ?? "")")
+            Text("NotificationValue: \(store.selectedPerson?.isNotificationsEnabled ?? false)")
+            TextField(
+                "Text",
+                text: Binding(
+                    get: { store.name },
+                    set: { newValue in store.send(.setName(newValue)) }
+                )
+            )
+            Button("Close") {
+                store.send(.dismissModal(store.name))
+            }
         }
     }
-}
-
-#Preview {
-    ProfileView(store: Store(initialState: ProfileFeature.State(), reducer: {
-        ProfileFeature()
-    }))
 }

@@ -9,7 +9,7 @@ import ComposableArchitecture
 
 @Reducer
 struct ProfileFeature {
-    @Bindable
+    @Perception.@Bindable
     struct State: Equatable {
         var name: String = ""
         var isNotificationsEnabled: Bool = false

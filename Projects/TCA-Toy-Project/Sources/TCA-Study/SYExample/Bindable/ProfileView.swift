@@ -26,19 +26,28 @@ struct ProfileView: View {
                 .foregroundStyle(store.isNameTooLong ? Color.red : Color.green)
                 
                 if store.isNameTooLong {
-                    Text("Name is too long! Name's count could be under the 10")
+                    Text("Name is too long! \nName's count could be under the 10")
                 }
             }
             
-            List(store.people, id: \.id) { person in
+            List(store.state.people, id: \.id) { person in
                 Text(person.name)
+                    .onTapGesture {
+                        store.send(.tappedPerson(person))
+                    }
             }
         }
+        .sheet(item: $store.scope(state: \.detailPerson, action: \.detailPersonAction)) { detailPerson in
+            ProfileDetailView(store: detailPerson)
+        }
+        
     }
 }
 
 #Preview {
-    ProfileView(store: Store(initialState: ProfileFeature.State(), reducer: {
-        ProfileFeature()
-    }))
+    NavigationStack {
+        ProfileView(store: Store(initialState: ProfileFeature.State(), reducer: {
+            ProfileFeature()
+        }))
+    }
 }
