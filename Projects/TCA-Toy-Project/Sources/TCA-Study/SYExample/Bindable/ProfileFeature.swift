@@ -63,12 +63,12 @@ struct ProfileFeature {
                 if let index = state.people.index(id: updatedPerson.id) {
                     state.people[index] = updatedPerson
                 }
-                state.detailPerson = nil
+//                state.detailPerson = nil
                 return .none
 
-            case .detailPerson(.presented(.delegate(.dismiss))):
-                state.detailPerson = nil
-                return .none
+//            case .detailPerson(.presented(.delegate(.dismiss))):
+//                state.detailPerson = nil
+//                return .none
                 
             case .detailPerson:
                 if state.detailPerson != nil {
