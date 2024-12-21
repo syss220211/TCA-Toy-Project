@@ -59,25 +59,16 @@ struct ProfileFeature {
                 state.detailPerson = ProfileDetailFeature.State(selectedPerson: person, editedName: person.name)
                 return .none
                 
-            case .detailPerson(.presented(.updateButtonTapped)):
-                if state.detailPerson != nil {
-                    if let updatedPerson = state.detailPerson?.selectedPerson,
-                       let index = state.people.index(id: updatedPerson.id) {
-                        state.people[index] = updatedPerson
-                    }
-                    state.detailPerson = nil
-                    return .none
-                } else {
-                    return .none
+            case .detailPerson(.presented(.delegate(.updatePerson(let updatedPerson)))):
+                if let index = state.people.index(id: updatedPerson.id) {
+                    state.people[index] = updatedPerson
                 }
-                
-            case .detailPerson(.presented(.dismissModal)):
-                if state.detailPerson != nil {
-                    state.detailPerson = nil
-                    return .none
-                } else {
-                    return .none
-                }
+                state.detailPerson = nil
+                return .none
+
+            case .detailPerson(.presented(.delegate(.dismiss))):
+                state.detailPerson = nil
+                return .none
                 
             case .detailPerson:
                 if state.detailPerson != nil {

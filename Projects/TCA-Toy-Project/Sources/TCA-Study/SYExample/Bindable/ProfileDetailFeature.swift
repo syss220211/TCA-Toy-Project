@@ -20,6 +20,12 @@ struct ProfileDetailFeature {
         case binding(BindingAction<State>)
         case updateButtonTapped
         case dismissModal
+        case delegate(Delegate)
+        
+        enum Delegate: Equatable {
+            case updatePerson(Profile)
+            case dismiss
+        }
     }
     
     var body: some ReducerOf<Self> {
@@ -31,12 +37,15 @@ struct ProfileDetailFeature {
                 
             case .updateButtonTapped:
                 state.selectedPerson.name = state.editedName
-                return .send(.dismissModal)
+                return .send(.delegate(.updatePerson(state.selectedPerson)))
                 
             case .dismissModal:
-                return .none
+                return .send(.delegate(.dismiss))
                 
             case .binding:
+                return .none
+                
+            case .delegate:
                 return .none
             }
         }
