@@ -20,7 +20,6 @@ struct ProfileView: View {
                 
                 Button("Save") {
                     store.send(.saveProfile)
-                    // store.send(.resetForm)
                 }
                 .disabled(store.isNameTooLong)
                 .foregroundStyle(store.isNameTooLong ? Color.red : Color.green)
@@ -37,7 +36,7 @@ struct ProfileView: View {
                     }
             }
         }
-        .sheet(item: $store.scope(state: \.detailPerson, action: \.detailPersonAction)) { detailPerson in
+        .sheet(item: $store.scope(state: \.detailPerson, action: \.detailPerson)) { detailPerson in
             ProfileDetailView(store: detailPerson)
         }
         

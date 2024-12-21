@@ -12,25 +12,32 @@ import ComposableArchitecture
 struct ProfileDetailFeature {
     @ObservableState
     struct State: Equatable {
-        var selectedPerson: Profile? = nil
-        var isModalPresented: Bool = false
-//        var name: String = ""
+        var selectedPerson: Profile
+        var editedName: String
     }
     
-    enum Action: Equatable {
-        case dismissModal//(String)
-//        case setName(String)
+    enum Action: Equatable, BindableAction {
+        case binding(BindingAction<State>)
+        case updateButtonTapped
+        case dismissModal
     }
     
     var body: some ReducerOf<Self> {
+        BindingReducer()
         Reduce { state, action in
             switch action {
+            case .binding(\.editedName):
+                return .none
+                
+            case .updateButtonTapped:
+                state.selectedPerson.name = state.editedName
+                return .send(.dismissModal)
+                
             case .dismissModal:
                 return .none
                 
-//            case .setName(let value):
-//                state.name = value
-//                return .none
+            case .binding:
+                return .none
             }
         }
     }

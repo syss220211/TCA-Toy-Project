@@ -10,23 +10,20 @@ import SwiftUI
 import ComposableArchitecture
 
 struct ProfileDetailView: View {
-    let store: StoreOf<ProfileDetailFeature>
+    @Perception.Bindable var store: StoreOf<ProfileDetailFeature>
     
     var body: some View {
-        VStack {
-            Text("이름 \(store.selectedPerson?.name ?? "")")
-            Text("NotificationValue: \(store.selectedPerson?.isNotificationsEnabled ?? false)")
-//            TextField(
-//                "Text",
-//                text: Binding(
-//                    get: { store.name },
-//                    set: { newValue in store.send(.setName(newValue)) }
-//                )
-//            )
+        Form {
+            TextField("Name", text: $store.editedName)
+            Toggle("Notifications", isOn: .constant(store.selectedPerson.isNotificationsEnabled))
+            
+            Button("Update") {
+                store.send(.updateButtonTapped)
+            }
             Button("Close") {
                 store.send(.dismissModal)
-//                store.send(.dismissModal(store.name))
             }
         }
     }
 }
+

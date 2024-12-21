@@ -31,24 +31,16 @@ struct ProfileFeature {
         case saveProfile
         case resetForm
         case tappedPerson(Profile)
-        case detailPersonAction(PresentationAction<ProfileDetailFeature.Action>)
+        case detailPerson(PresentationAction<ProfileDetailFeature.Action>)
     }
-
+    
     var body: some ReducerOf<Self> {
         BindingReducer()
         Reduce { state, action in
             switch action {
             case .binding(\.name):
-                if state.name.count > 5 {
-                    state.isNameTooLong = true
-                } else {
-                    state.isNameTooLong = false
-                }
-                if !state.people.isEmpty {
-                    state.people[0].name = state.name
-                }
+                state.isNameTooLong = state.name.count > 10
                 return .none
-                //                return .send(.saveProfile)ㅑ
                 
             case .binding:
                 return .none
@@ -56,12 +48,7 @@ struct ProfileFeature {
             case .saveProfile:
                 let new = Profile(id: UUID(), name: state.name, isNotificationsEnabled: state.isNotificationsEnabled)
                 state.people.append(new)
-//                return .run { [isBool = state.isNameTooLong] send in
-//                    await send(abcd(isBool: isBool))
-//                }
-                return .run { send in
-                    await send(.resetForm)
-                }
+                return .send(.resetForm)
                 
             case .resetForm:
                 state.name = ""
@@ -69,36 +56,38 @@ struct ProfileFeature {
                 return .none
                 
             case .tappedPerson(let person):
-                state.detailPerson = ProfileDetailFeature.State(selectedPerson: person, isModalPresented: true)
+                state.detailPerson = ProfileDetailFeature.State(selectedPerson: person, editedName: person.name)
                 return .none
                 
-//            case .detailPersonAction(.presented(.dismissModal)):
-//                state.detailPerson = nil
-//                return .none
-            case .detailPersonAction(let presentationAction):
-                switch presentationAction {
-                case .presented(let detailAction):
-                    switch detailAction {
-                    case .dismissModal:
-                        state.detailPerson = nil
-                        return .none
-//                    case .dismissModal(let name):
-//                        state.name = name
-//                        state.detailPerson = nil
-//                        return .none
-//                    default:
-//                        return .none
+            case .detailPerson(.presented(.updateButtonTapped)):
+                if state.detailPerson != nil {
+                    if let updatedPerson = state.detailPerson?.selectedPerson,
+                       let index = state.people.index(id: updatedPerson.id) {
+                        state.people[index] = updatedPerson
                     }
-//                case .dismiss:
-//                    state.detailPerson = nil
-//                    print("Dddddddddd")
-//                    return .none
-                case .dismiss:
+                    state.detailPerson = nil
+                    return .none
+                } else {
+                    return .none
+                }
+                
+            case .detailPerson(.presented(.dismissModal)):
+                if state.detailPerson != nil {
+                    state.detailPerson = nil
+                    return .none
+                } else {
+                    return .none
+                }
+                
+            case .detailPerson:
+                if state.detailPerson != nil {
+                    return .none
+                } else {
                     return .none
                 }
             }
         }
-        .ifLet(\.$detailPerson, action: \.detailPersonAction) {
+        .ifLet(\.$detailPerson, action: \.detailPerson) {
             ProfileDetailFeature()
         }
     }
