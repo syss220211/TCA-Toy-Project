@@ -19,12 +19,12 @@ struct ContactsView: View {
                     HStack {
                         Text(contact.name)
                         Spacer()
-                        Image(systemName: "trash")
-                            .foregroundStyle(Color.red)
-                            .onTapGesture {
-                                print("contact.id = \(contact.id)")
-                                store.send(.deleteButtonTapped(id: contact.id))
-                            }
+                        Button {
+                            store.send(.deleteButtonTapped(id: contact.id))
+                        } label: {
+                            Image(systemName: "trash")
+                                .foregroundColor(.red)
+                        }
                     }
                 }
             }
@@ -39,12 +39,14 @@ struct ContactsView: View {
                 }
             }
         }
-        .sheet(item: $store.scope(state: \.addContact, action: \.addContact)) { addContacts in
+        .sheet(
+            item: $store.scope(state: \.destination?.addContact, action: \.destination.addContact)
+        ) { addContactStore in
             NavigationStack {
-                AddContactView(store: addContacts)
+                AddContactView(store: addContactStore)
             }
         }
-        .alert($store.scope(state: \.alert, action: \.alert))
+        .alert($store.scope(state: \.destination?.alert, action: \.destination.alert))
     }
 }
 
