@@ -39,7 +39,6 @@ struct ProfileView: View {
         .sheet(item: $store.scope(state: \.detailPerson, action: \.detailPerson)) { detailPerson in
             ProfileDetailView(store: detailPerson)
         }
-        
     }
 }
 
