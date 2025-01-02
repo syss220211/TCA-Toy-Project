@@ -81,35 +81,35 @@ struct StudyRootFeature {
                     state.path.removeLast()
                     return .none
                 
-                case .element(id: _, action: .fourthFeature(.goToSecondView)):
-                    handleNavigation(state: &state, target: .secondFeature(SecondFeature.State()))
-                    return .none
-
-                case .element(id: _, action: .fourthFeature(.popToFirstView)):
-                    handleNavigation(state: &state, target: .firstFeature(FirstFeature.State()))
-                    return .none
-
 //                case .element(id: _, action: .fourthFeature(.goToSecondView)):
-//                    if let secondFeatureIndex = state.path.firstIndex(where: {
-//                        if case .secondFeature = $0 { return true }
-//                        return false
-//                    }) {
-//                        state.path.removeSubrange(secondFeatureIndex+1..<state.path.count)
-//                    } else {
-//                        state.path.append(.secondFeature(SecondFeature.State()))
-//                    }
+//                    handleNavigation(state: &state, target: .secondFeature(SecondFeature.State()))
 //                    return .none
-//                    
-//                case .element(id: _, action: .fourthFeature(.popToFirstView)):
-//                    if let firstFeatureIndex = state.path.firstIndex(where: {
-//                        if case .firstFeature = $0 { return true }
-//                        return false
-//                    }) {
-//                        state.path.removeSubrange(firstFeatureIndex+1..<state.path.count)
-//                    } else {
-//                        state.path.append(.firstFeature(FirstFeature.State()))
-//                    }
+
+//                case .element(id: let id, action: .fourthFeature(.popToFirstView)):
+//                    handleNavigation(state: &state, target: .firstFeature(FirstFeature.State()))
 //                    return .none
+
+                case .element(id: _, action: .fourthFeature(.goToSecondView)):
+                    if let secondFeatureIndex = state.path.firstIndex(where: {
+                        if case .secondFeature = $0 { return true }
+                        return false
+                    }) {
+                        state.path.removeSubrange(secondFeatureIndex+1..<state.path.count)
+                    } else {
+                        state.path.append(.secondFeature(SecondFeature.State()))
+                    }
+                    return .none
+                    
+                case .element(id: _, action: .fourthFeature(.popToFirstView)):
+                    if let firstFeatureIndex = state.path.firstIndex(where: {
+                        if case .firstFeature = $0 { return true }
+                        return false
+                    }) {
+                        state.path.removeSubrange(firstFeatureIndex+1..<state.path.count)
+                    } else {
+                        state.path.append(.firstFeature(FirstFeature.State()))
+                    }
+                    return .none
                     
                 case .element(id: _, action: .firstFeature(.back)):
                     state.path.removeLast()
