@@ -44,7 +44,9 @@ struct ToyProjectApp: App {
 //            ContactsView(store: Store(initialState: ContactsFeature.State(), reducer: {
 //                ContactsFeature()
 //            }))
-            MyMainView()
+            MyMainView(store: Store(initialState: MainFeature.State(), reducer: {
+                MainFeature()
+            }))
         }
     }
 }

@@ -10,8 +10,8 @@ import SwiftUI
 
 struct ChipView: View {
     
-    @Binding var tappedType: MemoType
-    var action: (() -> Void)?
+    var tappedType: MemoType
+    var action: ((MemoType) -> Void)?
     var allHiden: Bool? = true
     
     var body: some View {
@@ -30,17 +30,20 @@ struct ChipView: View {
                                     .opacity(tappedType == memo ? 0 : 1)
                             )
                             .clipShape(RoundedRectangle(cornerRadius: 12))
+                            .onTapGesture {
+                                action?(tappedType)
+                            }
                     }
                 }
             }
-            .padding(.bottom, 10)
         }
         .scrollIndicators(.hidden)
+        .padding(.leading, 24)
     }
 }
 
 extension ChipView {
-    func tap(action: @escaping (() -> Void)) -> Self {
+    func tap(action: @escaping ((MemoType) -> Void)) -> Self {
         var copy = self
         copy.action = action
         return copy
@@ -48,5 +51,5 @@ extension ChipView {
 }
 
 #Preview {
-    ChipView(tappedType: .constant(.ideas))
+    ChipView(tappedType: .personal)
 }
