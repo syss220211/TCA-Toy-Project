@@ -41,8 +41,11 @@ struct ToyProjectApp: App {
     var body: some Scene {
         WindowGroup {
 //            CounterView(store: ToyProjectApp.store)
-            ContactsView(store: Store(initialState: ContactsFeature.State(), reducer: {
-                ContactsFeature()
+//            ContactsView(store: Store(initialState: ContactsFeature.State(), reducer: {
+//                ContactsFeature()
+//            }))
+            MyMainView(store: Store(initialState: MainFeature.State(), reducer: {
+                MainFeature()
             }))
         }
     }

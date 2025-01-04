@@ -1,5 +1,5 @@
 //
-//  MainView.swift
+//  Divider.swift
 //  TCA-Toy-Project
 //
 //  Created by 박서연 on 1/2/25.
@@ -8,12 +8,14 @@
 
 import SwiftUI
 
-struct MainView: View {
+struct Divider: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Rectangle()
+            .fill(Color.divider)
+            .frame(maxWidth: .infinity, maxHeight: 1)
     }
 }
 
 #Preview {
-    MainView()
+    Divider()
 }
